@@ -6,7 +6,8 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const _ = require('underscore');
-var endpoints = require('./routes/routes.js');
+// var endpoints = require('./routes/routes.js');
+var routes = require('./routes/booksroutes/bookroute.js');
 var config = require('./config/config.js');
 
 var app = express();
@@ -29,7 +30,8 @@ app.use(function (req, res, next) {
 });
 
 // Routes
-app.use('/api', endpoints);
+// app.use('/api', endpoints);
+app.use('/api', routes);
 
 // socket.io
 io.on('connection', (socket) => {

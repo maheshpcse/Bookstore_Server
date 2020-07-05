@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const userschema = new mongoose.Schema({
+const userschema = mongoose.Schema({
     user_id: {
         type: Number
     },
@@ -7,6 +7,9 @@ const userschema = new mongoose.Schema({
         type: String
     },
     lastname: {
+        type: String
+    },
+    username: {
         type: String
     },
     email: {
@@ -37,17 +40,17 @@ const userschema = new mongoose.Schema({
         type: String
     },
     status: {
-        type: Boolean,
+        type: String
     },
     configure: {
-        type: Boolean,
+        type: Boolean
     },
     created_at: {
-        type: Boolean,
+        type: Date
     },
     updated_at: {
-        type: Boolean,
+        type: Date
     }
 });
-mongoose.model('users', userschema);
 
+mongoose.model('User', userschema, 'users');
