@@ -8,6 +8,8 @@ const cors = require('cors');
 const _ = require('underscore');
 var endpoints = require('./routes/routes.js');
 var config = require('./config/config.js');
+var routes = require('./routes/booksroutes/bookroute');
+const router = require('./routes/routes.js');
 
 var app = express();
 var http = require('http').createServer(app);
@@ -30,6 +32,7 @@ app.use(function (req, res, next) {
 
 // Routes
 app.use('/api', endpoints);
+app.use('/api', router);
 
 // socket.io
 io.on('connection', (socket) => {

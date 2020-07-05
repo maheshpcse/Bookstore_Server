@@ -11,7 +11,6 @@ module.exports.booksregister = async (request, response) => {
         password: req.body.password,
         phonenumber: req.body.phonenumber,
         role: req.body.role,
-        assigned_role: req.body.assigned_role,
         desgination: req.body.desgination,
         depertmenet: req.body.depertmenet,
         profilepath: req.body.profilepath,

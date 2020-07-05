@@ -9,6 +9,9 @@ const userschema = new mongoose.Schema({
     lastname: {
         type: String
     },
+    username: {
+        type: String
+    },
     email: {
         type: String
     },
@@ -49,5 +52,5 @@ const userschema = new mongoose.Schema({
         type: Boolean,
     }
 });
-mongoose.model('users', userschema);
+mongoose.model('User', userschema, 'users');
 
