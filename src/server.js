@@ -1,5 +1,6 @@
 'use strict';
 // Required modules
+require('./config/db');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -7,11 +8,7 @@ const cors = require('cors');
 const _ = require('underscore');
 var endpoints = require('./routes/routes.js');
 var config = require('./config/config.js');
-var Knexx = require('./config/knex.js');
-const {
-    Model
-} = require('objection');
-Model.knex(Knexx.knex);
+
 var app = express();
 var http = require('http').createServer(app);
 const io = require('socket.io')(http);

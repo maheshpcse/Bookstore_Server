@@ -66,49 +66,57 @@ module.exports.userSignup = (req, res, next) => {
     let columndata = {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
-        username: req.body.username,
         email: req.body.email,
         password: req.body.password,
+        phonenumber: req.body.phonenumber,
+        role: req.body.role,
+        assigned_role: req.body.assigned_role,
+        desgination: req.body.desgination,
+        depertmenet: req.body.depertmenet,
+        profilepath: req.body.profilepath,
+        uploadprofile: req.body.uploadprofile,
+        status: req.body.status,
+        configure: req.body.configure,
         created_at: new Date(),
         updated_at: new Date()
     }
 
     // (async () => {
-        userquery.simpleselect('users', '*', `email='${req.body.email}'`).then(async result => {
-            console.log('get user deatils', result);
-            if (result[0].email == req.body.email) {
-                return res.status(200).json({
-                    success: false,
-                    statusCode: 404,
-                    message: 'Email already exists',
-                    data: null
-                });
-            }
-            await userquery.insertTable('users', columndata).then(resp => {
-                console.log("response is:", resp);
-                res.status(200).json({
-                    success: true,
-                    statusCode: 200,
-                    message: 'Signup successful',
-                    data: resp
-                });
-            }).catch(err => {
-                console.log("Signup failed", err);
-                res.status(200).json({
-                    success: false,
-                    statusCode: 500,
-                    message: 'Signup failed',
-                    data: null
-                });
-            })
+    userquery.simpleselect('users', '*', `email='${req.body.email}'`).then(async result => {
+        console.log('get user deatils', result);
+        if (result[0].email == req.body.email) {
+            return res.status(200).json({
+                success: false,
+                statusCode: 404,
+                message: 'Email already exists',
+                data: null
+            });
+        }
+        await userquery.insertTable('users', columndata).then(resp => {
+            console.log("response is:", resp);
+            res.status(200).json({
+                success: true,
+                statusCode: 200,
+                message: 'Signup successful',
+                data: resp
+            });
         }).catch(err => {
-            console.log("Error while finding email", err);
+            console.log("Signup failed", err);
             res.status(200).json({
                 success: false,
                 statusCode: 500,
-                message: 'Error while finding email',
+                message: 'Signup failed',
                 data: null
             });
         })
+    }).catch(err => {
+        console.log("Error while finding email", err);
+        res.status(200).json({
+            success: false,
+            statusCode: 500,
+            message: 'Error while finding email',
+            data: null
+        });
+    })
     // })();
 }

@@ -26,6 +26,8 @@
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.1",
     "knex-db-manager": "^0.6.1",
+    "mongodb": "^3.5.9",
+    "mongoose": "^5.9.21",
     "multer": "^1.4.2",
     "mysql": "^2.18.1",
     "objection": "^2.1.3",

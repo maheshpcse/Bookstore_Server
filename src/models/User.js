@@ -1,29 +1,53 @@
-const { Model } = require('objection');
-
-class User extends Model {
-    static get tableName() {
-        return 'users';
+const mongoose = require('mongoose');
+const userschema = new mongoose.Schema({
+    user_id: {
+        type: Number
+    },
+    firstname: {
+        type: String
+    },
+    lastname: {
+        type: String
+    },
+    email: {
+        type: String
+    },
+    password: {
+        type: String
+    },
+    phonenumber: {
+        type: String
+    },
+    role: {
+        type: String
+    },
+    assigned_role: {
+        type: String
+    },
+    desgination: {
+        type: String
+    },
+    depertmenet: {
+        type: String
+    },
+    profilepath: {
+        type: String
+    },
+    uploadprofile: {
+        type: String
+    },
+    status: {
+        type: Boolean,
+    },
+    configure: {
+        type: Boolean,
+    },
+    created_at: {
+        type: Boolean,
+    },
+    updated_at: {
+        type: Boolean,
     }
+});
+mongoose.model('users', userschema);
 
-    static get idColumn() {
-        return 'user_id';
-    }
-
-    static get jsonSchema() {
-        return {
-            type: 'object',
-            properties: {
-                user_id: { type: 'integer' },
-                firstname: { type: 'string' },
-                lastname: { type: 'string' },
-                username: { type: 'string' },
-                email: { type: 'string' },
-                password: { type: 'string' },
-                created_at: { type: 'timestamp' },
-                updated_at: { type: 'timestamp' }
-            }
-        }
-    }
-}
-
-module.exports = User;
