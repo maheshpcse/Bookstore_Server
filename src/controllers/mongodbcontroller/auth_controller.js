@@ -3,7 +3,7 @@ var User = mongoose.model('User');
 var userlibrary = require('../../library/mongolibrary/userlibrary.js');
 
 // User signup API
-module.exports.booksregister = (request, response) => {
+module.exports.signup = (request, response) => {
     var user = new User({
         firstname: 'Pachapalam',
         lastname: 'Mahesh',
@@ -33,5 +33,11 @@ module.exports.booksregister = (request, response) => {
             message: 'signup failed',
             data: null
         })
+    })
+}
+
+module.exports.login = (req, res, next) => {
+    res.status(200).json({
+        message: 'Login successful'
     })
 }
