@@ -10,6 +10,7 @@ module.exports = {
         db: process.env.DB_NAME,
         username: process.env.DB_USER,
         password: process.env.DB_PASSWORD,
-        securitykey: process.env.SECURITY_KEY
+        securitykey: process.env.SECURITY_KEY,
+        url: 'mongodb://localhost:27017/bookstore'
     }
 }

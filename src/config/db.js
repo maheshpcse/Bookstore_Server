@@ -1,13 +1,20 @@
-var mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/bookstore");
+const mongoose = require('mongoose');
+var config = require('./config.js');
+require('../models/User.js');
+var options = {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+};
+
+mongoose.connect(config.database.url, options);
 mongoose.Promise = global.Promise;
 var connection = mongoose.connection;
-connection.once('open', function () {
-    console.log('connected to database');
 
+connection.once('open', function () {
+    console.log('Mongodb connection success');
 });
 
 connection.on('error', function () {
-    console.error("Mongoose connection error");
-
+    console.error('Mongodb connection failed');
 });

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const userschema = new mongoose.Schema({
+const userschema = mongoose.Schema({
     user_id: {
         type: Number
     },
@@ -40,17 +40,17 @@ const userschema = new mongoose.Schema({
         type: String
     },
     status: {
-        type: Boolean,
+        type: String
     },
     configure: {
-        type: Boolean,
+        type: Boolean
     },
     created_at: {
-        type: Boolean,
+        type: Date
     },
     updated_at: {
-        type: Boolean,
+        type: Date
     }
 });
-mongoose.model('User', userschema, 'users');
 
+mongoose.model('User', userschema, 'users');

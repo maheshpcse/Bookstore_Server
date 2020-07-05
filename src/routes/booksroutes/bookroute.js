@@ -1,9 +1,9 @@
 const express = require('express');
 var router = express.Router();
-var auth_controllser = require('../mongodbcontroller/auth_controller');
+var authController = require('../../controllers/mongodbcontroller/auth_controller.js');
 
 
-router.post('/signup', auth_controllser.booksregister);
+router.post('/signup', authController.booksregister);
 
 
 module.exports = router;

@@ -1,18 +1,18 @@
 require('dotenv').config();
 const Promise = require('bluebird');
+const CryptoJS = require('crypto-js');
 
-let simpleselect = function (user) {
+let insertCollection = function (tableName) {
     return new Promise((resolve, reject) => {
-        let query = user.save();
+        let query = tableName.save();
         query.then(result => {
-            resolve(result)
-        }).catch(err => {
-            reject(err);
+            resolve(result);
+        }).catch(error => {
+            reject(error);
         })
     })
 }
 
-
 module.exports = {
-    simpleselect
+    insertCollection
 }
