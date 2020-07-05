@@ -13,6 +13,11 @@ let insertCollection = function (tableName) {
     })
 }
 
+let showCollection = function () {
+
+}
+
 module.exports = {
-    insertCollection
+    insertCollection,
+    showCollection
 }
