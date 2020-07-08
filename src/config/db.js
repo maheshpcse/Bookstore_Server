@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 var config = require('./config.js');
 require('../models/User.js');
+require('../models/Addbook');
 var options = {
     useNewUrlParser: true,
     useCreateIndex: true,

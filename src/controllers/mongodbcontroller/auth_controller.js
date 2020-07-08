@@ -1,20 +1,21 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const userlibrary = require('../../library/mongolibrary/userlibrary');
-const { response } = require('express');
+
 
 // User signup API
 module.exports.signup = (request, response) => {
+    console.log('the request is the',request.body);
     var user = new User({
-        firstname: 'mohan',
-        lastname: 'krishna',
-        email: 'krishnamohanyedla@gmail.com',
-        password: '1234',
-        phonenumber: '8886197968',
-        role: 'admin',
-        desgination: 'Mean Stack Developer',
-        depertmenet: 'IT/Software',
-        status: 'Active',
+        firstname: request.body.firstname,
+        lastname: request.body.lastname,
+        email: request.body.email,
+        password: request.body.password,
+        phonenumber: request.body.phonenumber,
+       // role: request.body.role,
+        desgination: request.body.desgination,
+        depertmenet: request.body.depertmenet,
+        status: request.body.status,
         created_at: new Date(),
         updated_at: new Date()
     })
@@ -49,7 +50,7 @@ module.exports.login = (req, res, next) => {
             data: resp
         });
     }).catch(err => {
-        console.log('error',err);
+        console.log('error', err);
         res.status(200).json({
             status: 500,
             success: false,

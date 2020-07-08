@@ -21,30 +21,30 @@ const userschema = mongoose.Schema({
     phonenumber: {
         type: String
     },
-    role: {
-        type: String
-    },
-    assigned_role: {
-        type: String
-    },
+    // role: {
+    //     type: String
+    // },
+    // assigned_role: {
+    //     type: String
+    // },
     desgination: {
         type: String
     },
     depertmenet: {
         type: String
     },
-    profilepath: {
-        type: String
-    },
-    uploadprofile: {
-        type: String
-    },
+    // profilepath: {
+    //     type: String
+    // },
+    // uploadprofile: {
+    //     type: String
+    // },
     status: {
         type: String
     },
-    configure: {
-        type: Boolean
-    },
+    // configure: {
+    //     type: Boolean
+    // },
     created_at: {
         type: Date
     },
