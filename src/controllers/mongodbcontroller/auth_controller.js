@@ -1,7 +1,8 @@
+const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
-const userlibrary = require('../../library/mongolibrary/userlibrary');
-
+var userlibrary = require('../../library/mongolibrary/userlibrary');
+var config = require('../../config/config.js');
 
 // User signup API
 module.exports.signup = async (request, response) => {
@@ -24,7 +25,7 @@ module.exports.signup = async (request, response) => {
         console.log('the result data is theeeeeee', result);
         if (result.email == request.body.email) {
             return response.status(200).json({
-                status: 200,
+                statusCode: 200,
                 success: true,
                 message: 'email is alredy exist',
                 data: null
@@ -32,7 +33,7 @@ module.exports.signup = async (request, response) => {
         }
         await userlibrary.insertCollection(user).then(resp => {
             response.status(200).json({
-                status: 200,
+                statusCode: 200,
                 success: true,
                 message: 'signup successfully',
                 data: resp
@@ -40,7 +41,7 @@ module.exports.signup = async (request, response) => {
         }).catch(err => {
             console.log('the error is theeeee', err);
             response.status(200).json({
-                status: 500,
+                statusCode: 500,
                 success: failed,
                 message: 'signup failed',
                 data: null,
@@ -49,6 +50,7 @@ module.exports.signup = async (request, response) => {
     })
 }
 
+// User login API
 module.exports.login = (request, response, next) => {
     console.log('the login id is theeeeeeee', request.body);
     var whereObj = {
@@ -59,20 +61,27 @@ module.exports.login = (request, response, next) => {
     userlibrary.simpleselectlogin(User, whereObj).then(resp => {
         if (resp == null) {
             return response.status(200).json({
-                status: 404,
+                statusCode: 404,
                 success: false,
             })
         } else {
-            return response.status(200).json({
-                status: 200,
+            var token = jwt.sign({
+                username: resp.username,
+                email: resp.email
+            },config.database.securitykey, {
+                expiresIn: '24h'
+            });
+            response.status(200).json({
+                statusCode: 200,
                 success: true,
-                data:resp
+                data: resp,
+                token: token
             })
         }
     }).catch(err => {
         console.log('error', err);
-        res.status(200).json({
-            status: 500,
+        response.status(200).json({
+            statusCode: 500,
             success: false,
             message: 'login failed',
             data: null
