@@ -2,8 +2,6 @@ require('dotenv').config();
 const Promise = require('bluebird');
 const CryptoJS = require('crypto-js');
 const { response } = require('express');
-const { reject, resolve } = require('bluebird');
-const { promises } = require('fs');
 const { result } = require('underscore');
 // const { set } = require('mongoose');
 
@@ -35,15 +33,47 @@ let commonselectquery = function (tablename) {
         query.then(result => {
             resolve(result);
         }).catch(error => {
-            reject(error); F
+            reject(error);
         })
     })
 }
 
 let updatecollection = function (tablename, updatedata) {
     return new Promise((resolve, reject) => {
-        let query = tablename.updateMany({}, {$set: updatedata});
+        let query = tablename.updateMany({}, { $set: updatedata });
         // console.log('the update query',query);
+        query.then(result => {
+            resolve(result);
+        }).catch(error => {
+            reject(error);
+        })
+    })
+}
+
+let emailverification = function (tablename, email) {
+    return new Promise((resolve, reject) => {
+        let query = tablename.find(email);
+        query.then(result => {
+            resolve(result);
+        }).catch(error => {
+            reject(error);
+        })
+    })
+}
+
+let simpleselectlogin = function (tablename, obj) {
+    return new Promise((resolve, reject) => {
+        let query = tablename.findOne(obj);
+        query.then(result => {
+            resolve(result);
+        }).catch(error => {
+            reject(error);
+        })
+    })
+}
+let deleteone = function (tablename, id) {
+    return new Promise((resolve, reject) => {
+        let query = tablename.deleteOne(id);
         query.then(result => {
             resolve(result);
         }).catch(error => {
@@ -56,6 +86,9 @@ module.exports = {
     insertCollection,
     simpleselect,
     commonselectquery,
-    updatecollection
+    updatecollection,
+    emailverification,
+    simpleselectlogin,
+    deleteone
 }
 

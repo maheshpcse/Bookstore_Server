@@ -18,9 +18,7 @@ module.exports.getUsers = (req, res, next) => {
 }
 
 module.exports.getOneUserById = (req, res, next) => {
-
     console.log("request is", req.body);
-
     userquery.simpleselect('users', '*', `user_id='${req.body.user_id}'`).then(resp => {
         res.status(200).json({
             success: true,
