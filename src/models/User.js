@@ -27,10 +27,10 @@ const userschema = mongoose.Schema({
     // assigned_role: {
     //     type: String
     // },
-    desgination: {
+    designation: {
         type: String
     },
-    depertmenet: {
+    department: {
         type: String
     },
     // profilepath: {
@@ -45,6 +45,9 @@ const userschema = mongoose.Schema({
     // configure: {
     //     type: Boolean
     // },
+    lastLoginTime: {
+        type: Date
+    },
     created_at: {
         type: Date
     },

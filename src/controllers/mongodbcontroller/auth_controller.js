@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 var userlibrary = require('../../library/mongolibrary/userlibrary');
 var config = require('../../config/config.js');
+const { result } = require('underscore');
 
 // User signup API
 module.exports.signup = async (request, response) => {
@@ -14,9 +15,8 @@ module.exports.signup = async (request, response) => {
         email: request.body.email,
         password: request.body.password,
         phonenumber: request.body.phonenumber,
-        // role: request.body.role,
-        desgination: request.body.desgination,
-        depertmenet: request.body.depertmenet,
+        designation: request.body.designation,
+        department: request.body.department,
         status: request.body.status,
         created_at: new Date(),
         updated_at: new Date()
@@ -51,20 +51,25 @@ module.exports.signup = async (request, response) => {
 }
 
 // User login API
-module.exports.login = (request, response, next) => {
+module.exports.login = async (request, response, next) => {
     console.log('the login id is theeeeeeee', request.body);
     var whereObj = {
         username: request.body.username,
         password: request.body.password
     }
     console.log('the login id is theeeeeeee', whereObj);
-    userlibrary.simpleselectlogin(User, whereObj).then(resp => {
+    await userlibrary.simpleselectlogin(User, whereObj).then(async resp => {
         if (resp == null) {
             return response.status(200).json({
                 statusCode: 404,
                 success: false,
+                message: 'Invalid username or password',
+                data: null
             })
         } else {
+            await userlibrary.updatecollection(User,{username: request.body.username},{ lastLoginTime: new Date() }).then(result => {
+                console.log('Last login time updated', result);
+            })
             var token = jwt.sign({
                 username: resp.username,
                 email: resp.email
@@ -72,18 +77,20 @@ module.exports.login = (request, response, next) => {
                 expiresIn: '24h'
             });
             response.status(200).json({
-                statusCode: 200,
                 success: true,
+                statusCode: 200,
+                message: 'Login successful',
                 data: resp,
-                token: token
-            })
+                token: token,
+                lastlogintime: resp.lastLoginTime
+            });
         }
     }).catch(err => {
         console.log('error', err);
         response.status(200).json({
             statusCode: 500,
             success: false,
-            message: 'login failed',
+            message: 'Error while login',
             data: null
         })
     })
