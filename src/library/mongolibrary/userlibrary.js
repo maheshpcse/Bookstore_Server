@@ -38,9 +38,14 @@ let commonselectquery = function (tablename) {
     })
 }
 
-let updatecollection = function (tablename, updatedata) {
+let updatecollection = function (tablename, updateData, setData) {
     return new Promise((resolve, reject) => {
-        let query = tablename.updateMany({}, { $set: updatedata });
+        let query;
+        if(updateData) {
+            query = tablename.updateOne(updateData, { $set: setData });
+        } else {
+            query = tablename.updateMany({}, { $set: setData });
+        }
         // console.log('the update query',query);
         query.then(result => {
             resolve(result);
