@@ -29,4 +29,5 @@ router.get('/getUsers', userCtrl.getUsers);
 
 router.post('/getOneUserById', userCtrl.getOneUserById);
 
+
 module.exports = router;
