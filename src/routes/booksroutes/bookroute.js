@@ -6,6 +6,7 @@ var addbooks = require('../../controllers/mongodbcontroller/add_books');
 
 router.post('/signup', authController.signup);
 router.post('/login', authController.login);
+router.post('/logout', authController.userLogout);
 router.post('/addbooks', addbooks.booksadded);
 router.get('/getbooks', addbooks.getbboks);
 router.post('/updatebook', addbooks.updatebook);

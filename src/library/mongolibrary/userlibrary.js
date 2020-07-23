@@ -18,7 +18,7 @@ let insertCollection = function (tableName) {
 
 let simpleselect = function (tableName, where) {
     return new Promise((resolve, reject) => {
-        let query = tableName.where(where);
+        let query = tableName.find(where);
         query.findOne();
         query.then(result => {
             resolve(result);

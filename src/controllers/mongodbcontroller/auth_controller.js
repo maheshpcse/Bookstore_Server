@@ -67,7 +67,7 @@ module.exports.login = async (request, response, next) => {
                 data: null
             })
         } else {
-            await userlibrary.updatecollection(User,{username: request.body.username},{ lastLoginTime: new Date() }).then(result => {
+            await userlibrary.updatecollection(User,{username: request.body.username},{ lastLoginTime: new Date(), status:'Active' }).then(result => {
                 console.log('Last login time updated', result);
             })
             var token = jwt.sign({
@@ -92,6 +92,28 @@ module.exports.login = async (request, response, next) => {
             success: false,
             message: 'Error while login',
             data: null
+        })
+    })
+}
+
+// Logout
+module.exports.userLogout = (req, res, next) => {
+
+    console.log(req.body);
+    
+    userlibrary.updatecollection(User,{username: req.body.username},{ status:'Inactive' }).then(result => {
+        console.log('Last login time updated', result);
+        res.status(200).json({
+            success: true,
+            statusCode: 200,
+            message: 'User logout successful'
+        })
+    }).catch(err => {
+        console.log('Error while logout user', err);
+        res.status(200).json({
+            success: false,
+            statusCode: 500,
+            message: 'Error while logout user'
         })
     })
 }

@@ -1,6 +1,7 @@
 'use strict';
 // Required modules
-require('./config/db');
+require('./config/db.js');
+// require('./library/mongolibrary/socket-data.js');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -11,6 +12,12 @@ var routes = require('./routes/booksroutes/bookroute.js');
 var config = require('./config/config.js');
 var routes = require('./routes/booksroutes/bookroute');
 const router = require('./routes/routes.js');
+const { request } = require('express');
+
+const mongoose = require('mongoose');
+const User = mongoose.model('User');
+var config = require('./config/config.js');
+var userquery = require('./library/mongolibrary/userlibrary.js');
 
 var app = express();
 var http = require('http').createServer(app);
@@ -35,7 +42,7 @@ app.use(function (req, res, next) {
 // app.use('/api', endpoints);
 app.use('/api', routes);
 
-// socket.io
+// // socket.io
 io.on('connection', (socket) => {
     console.log('a user connected');
     socket.on('disconnect', () => {
@@ -49,6 +56,20 @@ io.on('connection', (socket) => {
     socket.on('new-message', (message) => {
         console.log(message);
         io.emit('new-message', message);
+    });
+
+    socket.on('userslist', (users) => {
+        var usersData = [];
+        (async () => {
+            await userquery.commonselectquery(User).then(resp => {
+                console.log('getting users list', resp);
+                usersData = resp;
+                io.emit('my users', usersData);
+            }).catch(err => {
+                console.log('error while getting users list', err);
+                io.emit('my users', usersData);
+            })
+        })();
     });
 });
 
