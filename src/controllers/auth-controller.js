@@ -6,9 +6,6 @@ var users = require('../models/User.js');
 
 // user Login API
 module.exports.userLogin = (req, res, next) => {
-
-    console.log("request fields are:", req.body);
-
     if (!req.body.username || !req.body.password) {
         return res.status(200).json({
             success: false,
@@ -17,9 +14,7 @@ module.exports.userLogin = (req, res, next) => {
             data: null
         });
     }
-
     let wherecond = `username='${req.body.username}' AND password='${req.body.password}'`;
-
     (async () => {
         await userquery.simpleselect('users', '*', wherecond).then(async result => {
             // console.log("response is:", result);

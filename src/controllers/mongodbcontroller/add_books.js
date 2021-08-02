@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const Addbooks = mongoose.model('BOOK');
 const userlibrary = require('../../library/mongolibrary/userlibrary');
 const { response } = require('express');
+var Joi = require('joi');
 module.exports.booksadded = (request, response) => {
-    console.log('the req payload is thee', request.payload);
     var addbooks = new Addbooks({
         book_id: '101',
         book_name: 'cp',
@@ -24,7 +24,7 @@ module.exports.booksadded = (request, response) => {
         console.log('..........', err);
         response.status(200).json({
             status: 500,
-            success: failed,
+            //success: failed,
             message: 'books not failed',
             data: null,
         })

@@ -13,7 +13,7 @@ const addbookschema = mongoose.Schema({
         type: String
     },
     created_by: {
-        type: String,
+        type: String,   
     },
     created_at: {
         type: Date
@@ -22,4 +22,4 @@ const addbookschema = mongoose.Schema({
         type: Date
     }
 });
-mongoose.model('BOOK', addbookschema, 'addbooks')
+mongoose.model('BOOK', addbookschema, 'addbooks');
